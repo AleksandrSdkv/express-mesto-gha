@@ -1,0 +1,39 @@
+{
+    "name": "express-mesto-gha",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "[![Tests](../../actions/workflows/tests-13-sprint.yml/badge.svg)](../../actions/workflows/tests-13-sprint.yml) [![Tests](../../actions/workflows/tests-14-sprint.yml/badge.svg)](../../actions/workflows/tests-14-sprint.yml)\r # Проект Mesto фронтенд + бэкенд",
+    "main": "index.js",
+    "scripts": {
+        "start": "node app.js",
+        "dev": "nodemon app.js",
+        "lint": "eslint ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AleksandrSdkv/express-mesto-gha.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/AleksandrSdkv/express-mesto-gha/issues"
+    },
+    "homepage": "https://github.com/AleksandrSdkv/express-mesto-gha#readme",
+    "devDependencies": {
+        "eslint": "^8.26.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.26.0",
+        "nodemon": "^2.0.20",
+        "stylelint": "^14.14.0",
+        "stylelint-config-idiomatic-order": "^9.0.0",
+        "stylelint-config-standard": "^29.0.0",
+        "stylelint-order": "^5.0.0"
+    },
+    "dependencies": {
+        "body-parser": "^1.20.1",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "mongoose": "^6.7.1"
+    }
+}
