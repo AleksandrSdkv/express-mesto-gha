@@ -25,7 +25,6 @@ export const createCard = (req, res) => {
 };
 
 export const deleteCard = (req, res) => {
-  console.log(req.params);
   cardModel.findByIdAndRemove(req.params.cardId)
     .then((card) => {
       if (card) {

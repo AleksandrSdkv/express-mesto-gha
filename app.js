@@ -13,7 +13,6 @@ const app = express();
 
 app.use(bodyParser.json());
 // валидация mongo
-mongoose.set({ runValidators: true });
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
