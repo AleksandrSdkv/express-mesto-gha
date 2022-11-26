@@ -1,4 +1,5 @@
 import { constants } from 'http2';
+import jwt from 'jsonwebtoken';
 import { userModel } from '../models/user.js';
 
 export const getUsers = (req, res) => {
@@ -76,4 +77,15 @@ export const updateAvatar = (req, res) => {
         res.status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({ message: 'На сервере произошла ошибка.' });
       }
     });
+};
+
+export const login = (req, res, next) => {
+  const { email, password } = req.body;
+
+  return userModel.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = jwt.sign({ _id: user._id }, 'key-secret', { expiresIn: '7d' });
+      res.send({ token });
+    })
+    .catch(next);
 };
