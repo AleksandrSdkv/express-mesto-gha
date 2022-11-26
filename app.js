@@ -9,6 +9,7 @@ import { cardRouter } from './routes/cards.js';
 import { createUser, login } from './controllers/users.js';
 import { auth } from './middlewares/auth.js';
 import { NotFoundError } from './errors/NotFoundError.js';
+import { userBodyValidator, userLoginValidator } from './validators/validators.js';
 
 dotenv.config();
 // подключаемся к серверу mongo
@@ -19,8 +20,8 @@ app.use(bodyParser.json());
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-app.post('/signin', login);
-app.post('/signup', createUser);
+app.post('/signup', userBodyValidator, createUser);
+app.post('/signin', userLoginValidator, login);
 
 app.use('/', userRouter);
 app.use('/', cardRouter);
