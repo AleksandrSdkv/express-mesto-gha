@@ -101,14 +101,28 @@ export const updateAvatar = (req, res, next) => {
 
 export const login = (req, res, next) => {
   const { email, password } = req.body;
+
   return userModel.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'secret', { expiresIn: '7d' });
-      res.send({ token });
+      if (!user) {
+        throw new NotFoundError('Нет пользователя с таким id');
+      }
+      // создадим токен
+      const token = jwt.sign(
+        { _id: user._id },
+        'secret',
+        { expiresIn: '7d' }, // токен будет просрочен через 7 дней после создания
+      );
+
+      // вернём токен
+      res
+        .cookie('jwt', token, {
+          // token - наш JWT токен, который мы отправляем
+          maxAge: 3600000 * 24 * 7, // кука будет просрочена через 7 дней после создания
+          httpOnly: true,
+        }).send({ token });
     })
-    .catch(() => {
-      next(new UnauthorizedError('Неверный логин или пароль'));
-    });
+    .catch(next);
 };
 
 export const findCurrentUser = (req, res, next) => {
