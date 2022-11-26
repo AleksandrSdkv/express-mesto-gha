@@ -3,14 +3,15 @@ import jwt from 'jsonwebtoken';
 import { userModel } from '../models/user.js';
 import { ConflictError } from '../errors/ConflictError.js';
 import { BadRequestError } from '../errors/BadRequestError.js';
-import { ServerError } from '../errors/ServerError.js';
+import { InternalServerError } from '../errors/InternalServerError.js';
 import { NotFoundError } from '../errors/NotFoundError.js';
+import { UnauthorizedError } from '../errors/UnauthorizedError.js';
 
 export const getUsers = (req, res, next) => {
   userModel.find({})
-    .then((users) => res.send(users))
+    .then((users) => res.send({ data: users }))
     .catch(() => {
-      next(new ServerError('Произошла ошибка сервера'));
+      next(new InternalServerError('Произошла ошибка сервера'));
     });
 };
 
@@ -18,14 +19,14 @@ export const getUser = (req, res, next) => {
   userModel.findById(req.params.userId)
     .then((user) => {
       if (!user) {
-        next(new BadRequestError('Введены некорректные данные'));
+        next(new NotFoundError('Введены некорректные данные'));
       } else res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('Введены некорректные данные'));
+        next(new ConflictError('Введены некорректные данные'));
       } else {
-        next(new ServerError('Произошла ошибка сервера'));
+        next(new InternalServerError('Произошла ошибка сервера'));
       }
     });
 };
@@ -53,7 +54,7 @@ export const createUser = (req, res, next) => {
       } else if (err.code === 11000) {
         next(new ConflictError('Пользователь с такой почтой уже существует'));
       } else {
-        next(new ServerError('Произошла ошибка сервера'));
+        next(new InternalServerError('Произошла ошибка сервера'));
       }
     });
 };
@@ -73,7 +74,7 @@ export const updateUser = (req, res, next) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Введены некорректные данные'));
       } else {
-        next(new ServerError('Произошла ошибка сервера'));
+        next(new InternalServerError('Произошла ошибка сервера'));
       }
     });
 };
@@ -93,7 +94,7 @@ export const updateAvatar = (req, res, next) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Введены некорректные данные'));
       } else {
-        next(new ServerError('Произошла ошибка сервера'));
+        next(new InternalServerError('Произошла ошибка сервера'));
       }
     });
 };
@@ -106,7 +107,7 @@ export const login = (req, res, next) => {
       res.send({ token });
     })
     .catch(() => {
-      next(new BadRequestError('Неверный логин или пароль'));
+      next(new UnauthorizedError('Неверный логин или пароль'));
     });
 };
 
@@ -123,7 +124,7 @@ export const findCurrentUser = (req, res, next) => {
       if (err.name === 'CastError') {
         next(new BadRequestError('Введены некорректные данные поиска'));
       } else {
-        next(new ServerError('Произошла ошибка сервера'));
+        next(new InternalServerError('Произошла ошибка сервера'));
       }
     });
 };
