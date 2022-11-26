@@ -1,5 +1,5 @@
 import { constants } from 'http2';
-import { HTTPError } from './HTTPError.js';
+import { HTTPError } from './ForbiddenError.js';
 
 export class BadRequestError extends HTTPError {
   constructor(message) {

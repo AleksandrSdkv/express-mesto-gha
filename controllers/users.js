@@ -122,7 +122,9 @@ export const login = (req, res, next) => {
           httpOnly: true,
         }).send({ token });
     })
-    .catch(next);
+    .catch(() => {
+      next(new UnauthorizedError('Неверный логин или пароль'));
+    });
 };
 
 export const findCurrentUser = (req, res, next) => {
