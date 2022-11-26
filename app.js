@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import { userRouter } from './routes/users.js';
 import { cardRouter } from './routes/cards.js';
 import { createUser, login } from './controllers/users.js';
-import { auth } from './middlewares/auth';
+import { auth } from './middlewares/auth.js';
 
 dotenv.config();
 // подключаемся к серверу mongo
@@ -21,7 +21,9 @@ app.post('/signup', createUser);
 
 app.use('/', userRouter);
 app.use('/', cardRouter);
+
 app.use(auth);
+
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });
