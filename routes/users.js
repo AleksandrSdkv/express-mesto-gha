@@ -10,8 +10,8 @@ import { userAvatarValidator, userProfileValidator, userIdValidator } from '../v
 
 export const userRouter = Router();
 
-userRouter.get('/users/me', findCurrentUser);
 userRouter.get('/users', getUsers);
+userRouter.get('/users/me', findCurrentUser);
 userRouter.get('/users/:userId', userIdValidator, getUser);
 userRouter.patch('/users/me', userProfileValidator, updateUser);
 userRouter.patch('/users/me/avatar', userAvatarValidator, updateAvatar);

@@ -19,14 +19,12 @@ app.use(bodyParser.json());
 // валидация mongo
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
-
+app.use(auth);
 app.post('/signup', userBodyValidator, createUser);
 app.post('/signin', userLoginValidator, login);
 
 app.use('/', userRouter);
 app.use('/', cardRouter);
-
-app.use(auth);
 
 app.all('/*', (req, res, next) => {
   next(new NotFoundError('Страница не существует'));

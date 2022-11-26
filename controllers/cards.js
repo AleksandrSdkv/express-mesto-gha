@@ -26,15 +26,17 @@ export const createCard = (req, res, next) => {
 };
 
 export const deleteCard = (req, res, next) => {
-  cardModel.findById(req.params.cardId)
+  const { cardId } = req.params;
+  cardModel.findById(cardId)
     .then((card) => {
       if (!card) {
-        next(new NotFoundError('Карточка не найдена'));
+        throw new NotFoundError('Карточка с указанным _id не найдена');
       } else if (card.owner.toString() !== req.user._id) {
-        next(new ForbiddenError('Доступ запрещен'));
+        throw new ForbiddenError('Запрещено');
       } else {
-        card.remove();
-        res.send(card);
+        card.remove()
+          .then(() => res.send({ data: card }))
+          .catch(next);
       }
     })
     .catch((err) => {
