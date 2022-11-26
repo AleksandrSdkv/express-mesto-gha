@@ -26,7 +26,7 @@ export const createCard = (req, res, next) => {
 };
 
 export const deleteCard = (req, res, next) => {
-  cardModel.findByIdAndRemove(req.params.cardId)
+  cardModel.findById(req.params.cardId)
     .then((card) => {
       if (!card) {
         next(new NotFoundError('Карточка не найдена'));

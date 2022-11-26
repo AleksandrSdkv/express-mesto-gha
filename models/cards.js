@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
-
+const regexpUrl = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/i;
 const Card = new mongoose.Schema({
   name: {
     type: String,
@@ -12,6 +12,10 @@ const Card = new mongoose.Schema({
   link: {
     type: String,
     required: true,
+    validate: {
+      validator: (link) => regexpUrl.test(link),
+      message: () => 'Требуется http(s) ссылка',
+    },
   },
   owner: {
     type: Schema.Types.ObjectId,
