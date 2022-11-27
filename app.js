@@ -9,7 +9,7 @@ import { cardRouter } from './routes/cards.js';
 import { createUser, login } from './controllers/users.js';
 import { auth } from './middlewares/auth.js';
 import { NotFoundError } from './errors/NotFoundError.js';
-import { userBodyValidator, userLoginValidator } from './validators/validators.js';
+import { userBodyValid, loginValid } from './validators/validators.js';
 
 dotenv.config();
 // подключаемся к серверу mongo
@@ -20,12 +20,14 @@ app.use(bodyParser.json());
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
-app.post('/signup', userBodyValidator, createUser);
-app.post('/signin', userLoginValidator, login);
+app.post('/signup', userBodyValid, createUser);
+app.post('/signin', loginValid, login);
+
+app.use(auth);
 
 app.use('/', userRouter);
 app.use('/', cardRouter);
-app.use(auth);
+
 app.all('/*', (req, res, next) => {
   next(new NotFoundError('Страница не существует'));
 });

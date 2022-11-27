@@ -6,12 +6,12 @@ import {
   updateAvatar,
   findCurrentUser,
 } from '../controllers/users.js';
-import { userAvatarValidator, userProfileValidator, userIdValidator } from '../validators/validators.js';
+import { validAvatar, profileValid, validUserId } from '../validators/validators.js';
 
 export const userRouter = Router();
 
 userRouter.get('/users', getUsers);
 userRouter.get('/users/me', findCurrentUser);
-userRouter.get('/users/:userId', userIdValidator, getUser);
-userRouter.patch('/users/me', userProfileValidator, updateUser);
-userRouter.patch('/users/me/avatar', userAvatarValidator, updateAvatar);
+userRouter.get('/users/:userId', validUserId, getUser);
+userRouter.patch('/users/me', profileValid, updateUser);
+userRouter.patch('/users/me/avatar', validAvatar, updateAvatar);
