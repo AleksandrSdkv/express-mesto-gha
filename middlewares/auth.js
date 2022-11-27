@@ -1,7 +1,7 @@
-import { verify } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 // eslint-disable-next-line consistent-return
-export default (req, res) => {
+export const auth = (req, res) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
@@ -16,7 +16,7 @@ export default (req, res) => {
   try {
     // попытаемся верифицировать токен
     // eslint-disable-next-line no-unused-vars
-    payload = verify(token, 'some-secret-key');
+    payload = jwt.verify(token, 'some-secret-key');
   } catch (err) {
     // отправим ошибку, если не получилось
     return res
