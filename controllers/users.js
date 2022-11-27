@@ -66,9 +66,11 @@ export const updateUser = (req, res, next) => {
     runValidators: true,
   })
     .then((user) => {
-      if (!user) {
+      if (user) {
+        res.send(user);
+      } else {
         next(new NotFoundError('Пользователь не найден'));
-      } else res.send(user);
+      }
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
