@@ -30,13 +30,12 @@ export const deleteCard = (req, res, next) => {
   cardModel.findById(cardId)
     .then((card) => {
       if (!card) {
-        throw new NotFoundError('Карточка с указанным _id не найдена');
+        next(new NotFoundError('Карточка не найдена'));
       } else if (card.owner.toString() !== req.user._id) {
-        throw new ForbiddenError('Запрещено');
+        next(new ForbiddenError('Доступ запрещен'));
       } else {
-        card.remove()
-          .then(() => res.send({ data: card }))
-          .catch(next);
+        card.remove();
+        res.send(card);
       }
     })
     .catch((err) => {
