@@ -110,7 +110,7 @@ export const login = (req, res, next) => {
       // создадим токен
       const token = jwt.sign(
         { _id: user._id },
-        'secret',
+        'some-secret-key',
         { expiresIn: '7d' }, // токен будет просрочен через 7 дней после создания
       );
 
