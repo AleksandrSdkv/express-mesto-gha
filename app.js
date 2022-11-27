@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
@@ -12,9 +13,9 @@ import { NotFoundError } from './errors/NotFoundError.js';
 import { userBodyValid, loginValid } from './validators/validators.js';
 
 dotenv.config();
+const config = dotenv.config({ path: path.resolve('.env.common') }).parsed;
 // подключаемся к серверу mongo
 const app = express();
-const { PORT = 3000 } = process.env;
 app.use(bodyParser.json());
 // валидация mongo
 
@@ -41,6 +42,6 @@ app.use((err, req, res, next) => {
   next();
 });
 
-app.listen(PORT, () => {
-  console.log('Запускаем сервер');
+app.listen(config.PORT, () => {
+  console.log(`App listening on port ${config.PORT}`);
 });
