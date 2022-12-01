@@ -5,7 +5,7 @@
 __:computer: https://github.com/AleksandrSdkv/express-mesto-gha.git :computer:__
 ## Результат 13 и 14 проектной работы
 
-### Выполнено развертывание с помощью фреймворка Express
+### Выполнено развертывание с помощью фреймворка Express версия node.js v16.15.1
 
 + Подключение линтер.
 + Созданы 2 схемы : User и Card.
@@ -18,6 +18,9 @@ __:computer: https://github.com/AleksandrSdkv/express-mesto-gha.git :computer:__
 #### Использование базу данных Mongo
 
 #### Инструкция по развёртыванию и системы
+*node -v (v16.15.1)*
+
+*git clone git@github.com:AleksandrSdkv/express-mesto-gha.git*
 
 *npm install*
 
