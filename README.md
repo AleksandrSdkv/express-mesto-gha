@@ -18,8 +18,9 @@ __:computer: https://github.com/AleksandrSdkv/express-mesto-gha.git :computer:__
 #### Использование базу данных Mongo
 
 #### Инструкция по развёртыванию и системы
-*
+
 *npm install*
+
 *npm start*
 
 
