@@ -20,7 +20,7 @@ __:computer: https://github.com/AleksandrSdkv/express-mesto-gha.git :computer:__
 #### Инструкция по развёртыванию и системы
 *node -v (v16.15.1)*
 
-*git clone git@github.com:AleksandrSdkv/express-mesto-gha.git*
+*git clone https://github.com/AleksandrSdkv/express-mesto-gha.git*
 
 *npm install*
 
